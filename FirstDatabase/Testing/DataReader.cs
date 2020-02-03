@@ -15,7 +15,7 @@ namespace Testing
         public List<DateTime> TicketDays { get; private set; }
         public List<DateTime> TicketIssue { get; private set; }
         public string Officer { get; private set; }
-        public DataReader(string officer)
+        public DataReader(string officer, string path)
         {
             this.GuidID = new List<Guid>();
             this.Names = new List<string>();
@@ -25,8 +25,9 @@ namespace Testing
             this.TicketDays = new List<DateTime>();
             this.TicketIssue = new List<DateTime>();
             this.Officer = officer;
+            this.GetDataFromCSV(path);
         }
-        public void GetDataFromCSV(string path)
+        private void GetDataFromCSV(string path)
         {
             using StreamReader streamReader = new StreamReader(path);
             string line;
@@ -42,7 +43,6 @@ namespace Testing
                 this.TicketDays.Add(DateTime.Parse(row[3]));
                 this.Names.Add(row[4]);
             }
-
         }
 
     }
