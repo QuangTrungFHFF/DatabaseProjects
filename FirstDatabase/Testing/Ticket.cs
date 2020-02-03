@@ -27,7 +27,7 @@ namespace Testing
         }
         public override string ToString()
         {
-            return string.Format($"{GuidID} | {Name} | {VehicleID} | {Passport} | {Notes} | {TicketDay} | {TicketIssue} | {Officer}");
+            return string.Format($"{GuidID} | {Name} | {VehicleID} | {Passport} | {Notes} | {TicketDay.ToShortDateString()} | {TicketIssue.ToShortDateString()} | {Officer}");
         }
     }
 }

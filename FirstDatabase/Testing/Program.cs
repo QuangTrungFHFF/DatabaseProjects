@@ -8,35 +8,27 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter connection string:");
-            string connectionString = Console.ReadLine();
+            string path = @"..\..\..\..\..\csv\data.csv";
+            DataReader reader = new DataReader("TRUNG", path);
+            reader.PrintData();
+
+            //Console.WriteLine("Enter connection string:");
+            string connectionString = "Server = localhost; Database = TutorialDB; Trusted_Connection = True;";
             
             using(SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
-                conn.Open();
-                //Create command
-                SqlCommand command = new SqlCommand("SELECT * FROM dbo.Tickets WHERE Name = @0", conn);
-                command.Parameters.Add(new SqlParameter("0", "HUNG"));
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    Console.WriteLine("FirstColumn\tSecond Column\t\tThird Column\t\tForth Column\t");
-                    while (reader.Read())
-                    {
-                        Console.WriteLine(String.Format("{0} \t | {1} \t | {2} \t | {3}",
-                            reader[0], reader[1], reader[2], reader[3]));
-                    }
-                }
-                Console.WriteLine("Data displayed! Now press enter to move to the next section!");
-                Console.ReadLine();
-
+                //conn.Open();
+                //InsertData(conn, reader);
             }
 
         }
         private static void InsertData(SqlConnection connection, DataReader data)
         {
-
+            foreach(var ticket in data.Tickets)
+            {
+                InsertData(connection, ticket.GuidID, ticket.Name, ticket.VehicleID, ticket.Passport, ticket.Notes, ticket.TicketDay, ticket.TicketIssue, ticket.Officer);
+            }
         }
 
         private static void InsertData(SqlConnection connection, Guid guid, string name, string vehicleId, string passport, string note, DateTime ticketDay, DateTime ticketIssue, string officer)
@@ -52,9 +44,7 @@ namespace Testing
                 querryInsert.Parameters.Add("@note", SqlDbType.NVarChar, 250).Value = note;
                 querryInsert.Parameters.Add("@officer", SqlDbType.NVarChar, 50).Value = officer;
                 querryInsert.Parameters.AddWithValue("@ticketDay", ticketDay);
-                querryInsert.Parameters.AddWithValue("@ticketDay", ticketIssue);
-
-                connection.Open();
+                querryInsert.Parameters.AddWithValue("@ticketIssue", ticketIssue);
 
                 querryInsert.ExecuteNonQuery();
             }
