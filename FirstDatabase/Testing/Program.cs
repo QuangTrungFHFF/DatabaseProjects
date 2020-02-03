@@ -10,7 +10,7 @@ namespace Testing
         {
             Console.WriteLine("Enter connection string:");
             string connectionString = Console.ReadLine();
-
+            
             using(SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
