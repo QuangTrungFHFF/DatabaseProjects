@@ -8,18 +8,23 @@ namespace Testing
     public class Program
     {
         public static void Main(string[] args)
-        {
+        {            
             string path = @"..\..\..\..\..\csv\data.csv";
-            DataReader reader = new DataReader("TRUNG", path);
-            reader.PrintData();
-
-            //Console.WriteLine("Enter connection string:");
             string connectionString = "Server = localhost; Database = TutorialDB; Trusted_Connection = True;";
 
+            string officer = "TRUNG";
+            DataReader dataReader = new DataReader(officer, path);
+            dataReader.PrintData();
+
             //Insert data to table from csv file
-            InsertData(connectionString, reader);
+            InsertData(connectionString, dataReader);
         }
 
+        /// <summary>
+        /// Insert data to the database table.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="data"> data get from csv file. Contains list of Tickets (row) that need to insert to dc table.</param>
         private static void InsertData(string connectionString, DataReader data)
         {
             StringBuilder errorMessages = new StringBuilder();
@@ -48,6 +53,18 @@ namespace Testing
             
         }
 
+        /// <summary>
+        /// SQL Querry generator and executer.
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="guid"></param>
+        /// <param name="name"></param>
+        /// <param name="vehicleId"></param>
+        /// <param name="passport"></param>
+        /// <param name="note"></param>
+        /// <param name="ticketDay"></param>
+        /// <param name="ticketIssue"></param>
+        /// <param name="officer"></param>
         private static void InsertData(SqlConnection connection, Guid guid, string name, string vehicleId, string passport, string note, DateTime ticketDay, DateTime ticketIssue, string officer)
         {
             string insertData = "INSERT INTO dbo.Tickets VALUES(@guid, @name, @vehicleId, @passport, @note, @ticketDay, @ticketIssue, @officer)";
