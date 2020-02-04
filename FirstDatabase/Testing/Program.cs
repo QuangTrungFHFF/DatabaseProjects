@@ -8,7 +8,7 @@ namespace Testing
     public class Program
     {
         public static void Main(string[] args)
-        {            
+        {
             string path = @"..\..\..\..\..\csv\data.csv";
             string connectionString = "Server = localhost; Database = TutorialDB; Trusted_Connection = True;";
 
@@ -50,7 +50,6 @@ namespace Testing
                 }
                 Console.WriteLine(errorMessages.ToString());
             }
-            
         }
 
         /// <summary>
@@ -83,5 +82,17 @@ namespace Testing
                 querryInsert.ExecuteNonQuery();
             }
         }
+
+        /*public bool CreateItem(ItemType item)
+        {
+            const string insert = @"INSERT INTO dbo.ProjectName_TableName(sA, iB , iC) VALUES(@A, @B, @C)";
+
+            using (IDbConnection connection = GetConnection())
+            {
+                var cnt = connection.Execute(insert, item);
+                
+                return cnt == 1;
+            }
+        }*/
     }
 }
