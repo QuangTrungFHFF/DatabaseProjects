@@ -39,6 +39,17 @@ namespace FormUI
             UpdateBinding();
         }
 
-        
+        private void insertButton_Click(object sender, EventArgs e)
+        {
+            DataAccess db = new DataAccess();
+
+            db.InsertPerson(firstNameText.Text, lastNameInText.Text, emailText.Text, genderText.Text, creditcardText.Text);
+
+            firstNameText.Text = "";
+            lastNameInText.Text = "";
+            emailText.Text = "";
+            genderText.Text = "";
+            creditcardText.Text = "";
+        }
     }
 }

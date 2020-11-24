@@ -19,5 +19,18 @@ namespace FormUI
                 return output;
             }
         }
+
+        public void InsertPerson(string firstName, string lastName, string emailAdress, string genderIns, string creditCard)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SampleData")))
+            {
+                Person newPerson = new Person {first_name = firstName, last_name = lastName, email = emailAdress, gender = genderIns, Credit_card = creditCard };
+                List<Person> people = new List<Person>();
+
+                people.Add(newPerson);
+
+                connection.Execute("");
+            }
+        }
     }
 }
