@@ -13,6 +13,14 @@ namespace FormUI
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string Gerder { get; set; }
-        public string CreditCard { get; set; }
+        public string CreditCard { get; set; }       
+
+        public string FullInfo 
+        { 
+            get
+            {
+                return $"{FirstName} {LastName} ({EmailAddress})";
+            }             
+        }
     }
 }
